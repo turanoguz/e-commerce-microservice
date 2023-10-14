@@ -1,0 +1,32 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order-service
+          uri: lb://order-service # Order Service'a yönlendirme
+          predicates:
+            - Path=/api/orders/**
+        - id: payment-service
+          uri: lb://payment-service # Payment Service'a yönlendirme
+          predicates:
+            - Path=/api/payments/**
+        - id: product-service
+          uri: lb://product-service # Product Service'a yönlendirme
+          predicates:
+            - Path=/api/products/**
+        - id: user-service
+          uri: lb://user-service # user Service'a yönlendirme
+          predicates:
+            - Path=/api/users/**
+         
+
+     
+eureka:
+  client:
+    serviceUrl:
+      default-zone: http://eureka-server-hostname:8761/eureka/
+
